@@ -65,21 +65,54 @@ janela.title("Login")
 janela.geometry("700x400")
 janela.resizable(False, False)
 
+# imagem
 img = PhotoImage(file="log.png")
-label_img = customtk.CTkLabel(master=janela, image=img)
-label_img.place(x=60, y=120)
+label_img = customtk.CTkLabel(master=janela, text="", image=img)
+label_img.place(x=75, y=120)
+
+# frame
+frame = customtk.CTkFrame(master=janela, width=350, height=396)
+frame.pack(side=RIGHT)
+
+label_login = customtk.CTkLabel(
+    master=frame,
+    text="Efetue seu login",
+    font=("Roboto", 20, "bold"),
+    text_color=("white"),
+)
+label_login.place(x=25, y=5)
+
+entry_email = customtk.CTkEntry(
+    master=frame,
+    placeholder_text="Digite seu email ou usuário",
+    font=("Roboto", 11, "bold"),
+    width=300,
+)
+entry_email.place(x=25, y=125)
+
+entry_senha = customtk.CTkEntry(
+    master=frame,
+    placeholder_text="Digite sua senha",
+    font=("Roboto", 11, "bold"),
+    width=300,
+    show="*",
+)
+entry_senha.place(x=25, y=170)
+
+checkbox_usuario = customtk.CTkCheckBox(master=frame, text="Lembrar email ou usuário")
+checkbox_usuario.place(x=25, y=210)
+
+button_login = customtk.CTkButton(
+    master=frame, text="Login",width=300, command=function.button_function
+)
+button_login.place(x=25, y=250)
+button_login = customtk.CTkButton(
+    master=frame, text="Registrar",width=300, command=function.button_function
+)
+button_login.place(x=25, y=290)
 
 """label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
 label_descricao.pack(padx=10, pady=10)
-
-entry_email = customtk.CTkEntry(janela, placeholder_text="seu email")
-entry_email.pack(padx=10, pady=10)
-
-entry_senha = customtk.CTkEntry(janela, placeholder_text="sua senha", show="*")
-entry_senha.pack(padx=10, pady=10)
-
-checkbox_usuario = customtk.CTkCheckBox(janela, text="Lembrar usuário")
-checkbox_usuario.pack(padx=10, pady=10)
 
 button_login = customtk.CTkButton(
     janela, text="Login", command=function.button_function
