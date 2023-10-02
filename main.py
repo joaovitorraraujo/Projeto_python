@@ -52,15 +52,18 @@ janela.mainloop()
 
 print(f'\n{lista_codigo}')"""
 import customtkinter as customtk
+import tkinter as tk
+from tkinter import *
 import function
 
-
-janela = customtk.CTk()
 customtk.set_appearance_mode("dark")
 customtk.set_default_color_theme("blue")
 
+janela = customtk.CTk()
+
 janela.title("Login")
-janela.geometry("500x300")
+janela.geometry("700x400")
+janela.resizable(False, False)
 
 label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
 label_descricao.pack(padx=10, pady=10)
@@ -74,7 +77,9 @@ entry_senha.pack(padx=10, pady=10)
 checkbox_usuario = customtk.CTkCheckBox(janela, text="Lembrar usuário")
 checkbox_usuario.pack(padx=10, pady=10)
 
-button_login = customtk.CTkButton(janela, text="Login", command=function.button_function)
+button_login = customtk.CTkButton(
+    janela, text="Login", command=function.button_function
+)
 button_login.pack(padx=10, pady=10)
 
 janela.mainloop()
