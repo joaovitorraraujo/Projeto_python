@@ -1,4 +1,4 @@
-import tkinter as tk
+"""import tkinter as tk
 from tkinter import ttk
 import datetime as dt
 
@@ -50,4 +50,31 @@ botao_criar_codigo.grid(row=5, column=0, padx=10, pady=10, sticky="nswe", column
 
 janela.mainloop()
 
-print(f'\n{lista_codigo}')
+print(f'\n{lista_codigo}')"""
+import customtkinter as customtk
+import function
+
+
+janela = customtk.CTk()
+customtk.set_appearance_mode("dark")
+customtk.set_default_color_theme("blue")
+
+janela.title("Login")
+janela.geometry("500x300")
+
+label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
+label_descricao.pack(padx=10, pady=10)
+
+entry_email = customtk.CTkEntry(janela, placeholder_text="seu email")
+entry_email.pack(padx=10, pady=10)
+
+entry_senha = customtk.CTkEntry(janela, placeholder_text="sua senha", show="*")
+entry_senha.pack(padx=10, pady=10)
+
+checkbox_usuario = customtk.CTkCheckBox(janela, text="Lembrar usuário")
+checkbox_usuario.pack(padx=10, pady=10)
+
+button_login = customtk.CTkButton(janela, text="Login", command=function.button_function)
+button_login.pack(padx=10, pady=10)
+
+janela.mainloop()
