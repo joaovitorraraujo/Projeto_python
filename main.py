@@ -65,7 +65,11 @@ janela.title("Login")
 janela.geometry("700x400")
 janela.resizable(False, False)
 
-label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
+img = PhotoImage(file="log.png")
+label_img = customtk.CTkLabel(master=janela, image=img)
+label_img.place(x=60, y=120)
+
+"""label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
 label_descricao.pack(padx=10, pady=10)
 
 entry_email = customtk.CTkEntry(janela, placeholder_text="seu email")
@@ -80,6 +84,6 @@ checkbox_usuario.pack(padx=10, pady=10)
 button_login = customtk.CTkButton(
     janela, text="Login", command=function.button_function
 )
-button_login.pack(padx=10, pady=10)
+button_login.pack(padx=10, pady=10)"""
 
 janela.mainloop()
