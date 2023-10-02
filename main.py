@@ -51,17 +51,17 @@ botao_criar_codigo.grid(row=5, column=0, padx=10, pady=10, sticky="nswe", column
 janela.mainloop()
 
 print(f'\n{lista_codigo}')"""
-import customtkinter as customtk
+import customtkinter as ctk
 import tkinter as tk
 from tkinter import *
 import function
 
-customtk.set_appearance_mode("dark")
-customtk.set_default_color_theme("blue")
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 # janela
-janela = customtk.CTk()
+janela = ctk.CTk()
 
-label_descricao = customtk.CTkLabel(
+label_descricao = ctk.CTkLabel(
     master=janela,
     text="Bem-Vindo ao Projeto",
     font=("Roboto", 25, "bold"),
@@ -75,20 +75,20 @@ janela.resizable(False, False)
 
 # imagem
 img = PhotoImage(file="log.png")
-label_img = customtk.CTkLabel(master=janela, text="", image=img)
+label_img = ctk.CTkLabel(master=janela, text="", image=img)
 label_img.place(x=75, y=120)
 
 
 # frame
-frame = customtk.CTkFrame(master=janela, width=350, height=396)
-frame.pack(side=RIGHT)
+frame_login = ctk.CTkFrame(master=janela, width=350, height=396)
+frame_login.pack(side=RIGHT)
 
 img = PhotoImage(file="login.png")
-label_img = customtk.CTkLabel(master=frame, text="", width=300, image=img)
+label_img = ctk.CTkLabel(master=frame_login, text="", width=300, image=img)
 label_img.place(x=25, y=50)
 
-label_login = customtk.CTkLabel(
-    master=frame,
+label_login = ctk.CTkLabel(
+    master=frame_login,
     text="Login",
     font=("Courie", 30, "italic"),
     text_color=("white"),
@@ -96,16 +96,16 @@ label_login = customtk.CTkLabel(
 )
 label_login.place(x=25, y=5)
 
-entry_email = customtk.CTkEntry(
-    master=frame,
+entry_email = ctk.CTkEntry(
+    master=frame_login,
     placeholder_text="Digite seu email ou usuário",
     font=("Roboto", 11, "bold"),
     width=300,
 )
 entry_email.place(x=25, y=165)
 
-entry_senha = customtk.CTkEntry(
-    master=frame,
+entry_senha = ctk.CTkEntry(
+    master=frame_login,
     placeholder_text="Digite sua senha",
     font=("Roboto", 11, "bold"),
     width=300,
@@ -113,16 +113,16 @@ entry_senha = customtk.CTkEntry(
 )
 entry_senha.place(x=25, y=210)
 
-checkbox_usuario = customtk.CTkCheckBox(master=frame, text="Lembrar email ou usuário")
+checkbox_usuario = ctk.CTkCheckBox(master=frame_login, text="Lembrar email ou usuário")
 checkbox_usuario.place(x=25, y=250)
 
-button_login = customtk.CTkButton(
-    master=frame, text="Login", width=300, command=function.button_function
+button_login = ctk.CTkButton(
+    master=frame_login, text="Login", width=300, command=function.button_function
 )
 button_login.place(x=25, y=290)
 
-button_register = customtk.CTkButton(
-    master=frame, text="Registrar", width=300, command=function.button_function
+button_register = ctk.CTkButton(
+    master=frame_login, text="Registrar", width=300, command=function.button_function
 )
 button_register.place(x=25, y=330)
 
