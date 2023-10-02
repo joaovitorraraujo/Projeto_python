@@ -58,8 +58,16 @@ import function
 
 customtk.set_appearance_mode("dark")
 customtk.set_default_color_theme("blue")
-
+# janela
 janela = customtk.CTk()
+
+label_descricao = customtk.CTkLabel(
+    master=janela,
+    text="Bem-Vindo ao Projeto",
+    font=("Roboto", 25),
+    text_color="#00B0F0",
+)
+label_descricao.place(x=55, y=10)
 
 janela.title("Login")
 janela.geometry("700x400")
@@ -103,16 +111,15 @@ checkbox_usuario = customtk.CTkCheckBox(master=frame, text="Lembrar email ou usu
 checkbox_usuario.place(x=25, y=210)
 
 button_login = customtk.CTkButton(
-    master=frame, text="Login",width=300, command=function.button_function
+    master=frame, text="Login", width=300, command=function.button_function
 )
 button_login.place(x=25, y=250)
 button_login = customtk.CTkButton(
-    master=frame, text="Registrar",width=300, command=function.button_function
+    master=frame, text="Registrar", width=300, command=function.button_function
 )
 button_login.place(x=25, y=290)
 
-"""label_descricao = customtk.CTkLabel(janela, text="Faça seu login")
-label_descricao.pack(padx=10, pady=10)
+"""
 
 button_login = customtk.CTkButton(
     janela, text="Login", command=function.button_function
