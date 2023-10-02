@@ -64,10 +64,10 @@ janela = customtk.CTk()
 label_descricao = customtk.CTkLabel(
     master=janela,
     text="Bem-Vindo ao Projeto",
-    font=("Roboto", 25),
+    font=("Roboto", 25, "bold"),
     text_color="#00B0F0",
 )
-label_descricao.place(x=55, y=10)
+label_descricao.place(x=55, y=50)
 
 janela.title("Login")
 janela.geometry("700x400")
@@ -78,15 +78,21 @@ img = PhotoImage(file="log.png")
 label_img = customtk.CTkLabel(master=janela, text="", image=img)
 label_img.place(x=75, y=120)
 
+
 # frame
 frame = customtk.CTkFrame(master=janela, width=350, height=396)
 frame.pack(side=RIGHT)
 
+img = PhotoImage(file="login.png")
+label_img = customtk.CTkLabel(master=frame, text="", width=300, image=img)
+label_img.place(x=25, y=50)
+
 label_login = customtk.CTkLabel(
     master=frame,
-    text="Efetue seu login",
-    font=("Roboto", 20, "bold"),
+    text="Login",
+    font=("Courie", 30, "italic"),
     text_color=("white"),
+    width=300,
 )
 label_login.place(x=25, y=5)
 
@@ -96,7 +102,7 @@ entry_email = customtk.CTkEntry(
     font=("Roboto", 11, "bold"),
     width=300,
 )
-entry_email.place(x=25, y=125)
+entry_email.place(x=25, y=165)
 
 entry_senha = customtk.CTkEntry(
     master=frame,
@@ -105,25 +111,19 @@ entry_senha = customtk.CTkEntry(
     width=300,
     show="*",
 )
-entry_senha.place(x=25, y=170)
+entry_senha.place(x=25, y=210)
 
 checkbox_usuario = customtk.CTkCheckBox(master=frame, text="Lembrar email ou usuário")
-checkbox_usuario.place(x=25, y=210)
+checkbox_usuario.place(x=25, y=250)
 
 button_login = customtk.CTkButton(
     master=frame, text="Login", width=300, command=function.button_function
 )
-button_login.place(x=25, y=250)
-button_login = customtk.CTkButton(
-    master=frame, text="Registrar", width=300, command=function.button_function
-)
 button_login.place(x=25, y=290)
 
-"""
-
-button_login = customtk.CTkButton(
-    janela, text="Login", command=function.button_function
+button_register = customtk.CTkButton(
+    master=frame, text="Registrar", width=300, command=function.button_function
 )
-button_login.pack(padx=10, pady=10)"""
+button_register.place(x=25, y=330)
 
 janela.mainloop()
