@@ -48,18 +48,16 @@ botao_criar_codigo = tk.Button(text="Criar codigo", command=inserir_codigo)
 botao_criar_codigo.grid(row=5, column=0, padx=10, pady=10, sticky="nswe", columnspan=4)
 
 
-janela.mainloop()
-
-print(f'\n{lista_codigo}')"""
+janela.mainloop()"""
 import customtkinter as ctk
+from CTkMessagebox import CTkMessagebox
 import tkinter as tk
 from tkinter import *
 import function
 
 window = ctk.CTk()
 
-
-class TelaLogin:
+class TelaLogin():
     def __init__(self):
         self.window = window
         self.theme()
@@ -104,25 +102,25 @@ class TelaLogin:
         ).place(x=25, y=50)
 
         img_google = PhotoImage(file="google.png")
-        label_img = ctk.CTkButton(
+        button_img = ctk.CTkButton(
             master=frame_login,
             text="Continue com Google",
             image=img_google,
             width=300,
-            fg_color="#fcfcfc",
+            fg_color="#db4a3b",
             text_color=("black"),
-            hover_color="#cdd1cd",
+            hover_color="#dc5e50",
         ).place(x=25, y=379)
 
         img_fecebook = PhotoImage(file="facebook.png")
-        label_img = ctk.CTkButton(
+        button_img = ctk.CTkButton(
             master=frame_login,
             text="Continue com Facebook",
             image=img_fecebook,
             width=300,
-            fg_color="#fcfcfc",
+            fg_color="#3d5a98",
             text_color=("black"),
-            hover_color="#cdd1cd",
+            hover_color="#5b6886",
         ).place(x=25, y=419)
 
         # widgets dentro do frame
@@ -155,12 +153,11 @@ class TelaLogin:
             font=("Roboto", 11, "bold"),
             width=300,
             show="*",
-        ).place(x=25, y=210)
+        ).place(x=25, y=205)
 
         checkbox_user = ctk.CTkCheckBox(
             master=frame_login, text="Lembrar email ou usuário", width=100
-        )
-        checkbox_user.place(x=25, y=250)
+        ).place(x=25, y=250)
 
         # botões de login, register e recuperar senha
         button_login = ctk.CTkButton(
@@ -189,7 +186,7 @@ class TelaLogin:
             frame_register.pack(side=RIGHT)
 
             # widgts dentro do frame de resgistro
-            label_login = ctk.CTkLabel(
+            label_register = ctk.CTkLabel(
                 master=frame_register,
                 text="Crie sua conta",
                 font=("Courie", 30, "italic"),
@@ -197,54 +194,118 @@ class TelaLogin:
                 width=300,
             ).place(x=25, y=25)
 
-            entry_email = ctk.CTkEntry(
+            label_descripiton_register = ctk.CTkLabel(
+                master=frame_register,
+                text="-Confira todos os campos antes de confirmar\n-Todos os campos são obrigatórios ",
+                font=("Courie", 11, "italic"),
+                text_color=("white"),
+                width=300,
+            ).place(x=25, y=70)
+
+            entry_user_register = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Digite seu usuário",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=205)
+            ).place(x=25, y=110)
 
-            entry_email = ctk.CTkEntry(
+            entry_email_register = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Digite seu E-mail",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=235)
+            ).place(x=25, y=150)
 
-            entry_email = ctk.CTkEntry(
+            entry_password_register = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Digite sua senha",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=265)
+            ).place(x=25, y=190)
 
-            entry_email = ctk.CTkEntry(
+            entry_confirm_password = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Confirme sua senha",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=265)
-            
+            ).place(x=25, y=230)
+
+            checkbox_terms = ctk.CTkCheckBox(
+                master=frame_register, text="Aceito os termos de serviço", width=145
+            ).place(x=25, y=270)
+
+            button_terms = ctk.CTkButton(
+                master=frame_register,
+                text="Acesse os termos",
+                width=100,
+                font=("Roboto", 11, "underline"),
+                fg_color="#6a6a7c",
+                hover_color="#4d4c4c",
+                command=function.button_function,
+            ).place(x=225, y=270)
+
+            def coonfirm_register():
+                msg_successfully = CTkMessagebox(
+                    title="Info", icon="check", message="Cadastrado com sucesso"
+                )
+
+                frame_register.pack_forget()
+
+                frame_login.pack(side=RIGHT)
+
+            button_register = ctk.CTkButton(
+                master=frame_register,
+                text="Confirmar",
+                width=145,
+                fg_color="green",
+                hover_color="#025f03",
+                command=coonfirm_register,
+            ).place(x=180, y=310)
+
+            def back():
+                # apagar frame de registro
+                frame_register.pack_forget()
+
+                # devolver frame de login
+                frame_login.pack(side=RIGHT)
+
+            button_back = ctk.CTkButton(
+                master=frame_register,
+                text="Voltar",
+                width=145,
+                fg_color="black",
+                hover_color="#0f0f0f",
+                command=back,
+            ).place(x=25, y=310)
+
+            label_or = ctk.CTkLabel(
+                master=frame_register,
+                text="Ou",
+                font=("Courie", 10),
+                text_color=("white"),
+                width=300,
+            ).place(x=25, y=349)
+
             img_google = PhotoImage(file="google.png")
-            label_img = ctk.CTkButton(
+            Button_img = ctk.CTkButton(
                 master=frame_register,
                 text="Vincule com Google",
                 image=img_google,
                 width=300,
-                fg_color="#fcfcfc",
+                fg_color="#db4a3b",
                 text_color=("black"),
-                hover_color="#cdd1cd",
+                hover_color="#dc5e50",
             ).place(x=25, y=379)
 
             img_fecebook = PhotoImage(file="facebook.png")
-            label_img = ctk.CTkButton(
+            Button_img = ctk.CTkButton(
                 master=frame_register,
                 text="Vincule com Facebook",
                 image=img_fecebook,
                 width=300,
-                fg_color="#fcfcfc",
+                fg_color="#3d5a98",
                 text_color=("black"),
-                hover_color="#cdd1cd",
+                hover_color="#5b6886",
             ).place(x=25, y=419)
 
         button_register = ctk.CTkButton(
@@ -257,4 +318,5 @@ class TelaLogin:
         ).place(x=25, y=325)
 
 
-TelaLogin()
+# TelaLogin()
+window.mainloop()
