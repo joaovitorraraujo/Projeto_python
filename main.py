@@ -56,78 +56,102 @@ import tkinter as tk
 from tkinter import *
 import function
 
-# tema
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("blue")
-
-janela = ctk.CTk()
-
-label_descricao = ctk.CTkLabel(
-    master=janela,
-    text="Bem-Vindo ao Projeto",
-    font=("Roboto", 25, "bold"),
-    text_color="#00B0F0",
-)
-label_descricao.place(x=55, y=50)
-
-# janela
-janela.title("Login")
-janela.geometry("700x400")
-janela.resizable(False, False)
-
-# imagem da janela
-img = PhotoImage(file="log.png")
-label_img = ctk.CTkLabel(master=janela, text="", image=img)
-label_img.place(x=75, y=120)
+window = ctk.CTk()
 
 
-# frame
-frame_login = ctk.CTkFrame(master=janela, width=350, height=396)
-frame_login.pack(side=RIGHT)
+class TelaLogin:
+    def __init__(self):
+        self.window = window
+        self.theme()
+        self.screen()
+        self.screen_login()
+        window.mainloop()
 
-# imagem do frame
-img = PhotoImage(file="login.png")
-label_img = ctk.CTkLabel(master=frame_login, text="", width=300, image=img)
-label_img.place(x=25, y=50)
+    # tema
+    def theme(self):
+        ctk.set_appearance_mode("dark")
+        ctk.set_default_color_theme("blue")
 
-# widgets dentro do frame
-label_login = ctk.CTkLabel(
-    master=frame_login,
-    text="Login",
-    font=("Courie", 30, "italic"),
-    text_color=("white"),
-    width=300,
-)
-label_login.place(x=25, y=5)
+    label_description = ctk.CTkLabel(
+        master=window,
+        text="Bem-Vindo ao Projeto",
+        font=("Roboto", 25, "bold"),
+        text_color="#00B0F0",
+    ).place(x=55, y=50)
 
-entry_email = ctk.CTkEntry(
-    master=frame_login,
-    placeholder_text="Digite seu email ou usuário",
-    font=("Roboto", 11, "bold"),
-    width=300,
-)
-entry_email.place(x=25, y=165)
+    # janela
+    def screen(self):
+        window.title("Login")
+        window.geometry("700x400")
+        window.resizable(False, False)
+        window.iconbitmap("icon.ico")
 
-entry_senha = ctk.CTkEntry(
-    master=frame_login,
-    placeholder_text="Digite sua senha",
-    font=("Roboto", 11, "bold"),
-    width=300,
-    show="*",
-)
-entry_senha.place(x=25, y=210)
+    def screen_login(self):
+        # imagem da janela
+        img = PhotoImage(file="log.png")
+        label_img = ctk.CTkLabel(master=window, text="", image=img).place(x=75, y=120)
 
-checkbox_usuario = ctk.CTkCheckBox(master=frame_login, text="Lembrar email ou usuário")
-checkbox_usuario.place(x=25, y=250)
+        # frame
+        frame_login = ctk.CTkFrame(master=window, width=350, height=396)
+        frame_login.pack(side=RIGHT)
 
-button_login = ctk.CTkButton(
-    master=frame_login, text="Login", width=300, command=function.button_function
-)
-button_login.place(x=25, y=290)
+        # imagem do frame
+        img = PhotoImage(file="login.png")
+        label_img = ctk.CTkLabel(
+            master=frame_login, text="", width=300, image=img
+        ).place(x=25, y=50)
 
-button_register = ctk.CTkButton(
-    master=frame_login, text="Registrar", width=300, command=function.button_function
-)
-button_register.place(x=25, y=330)
+        # widgets dentro do frame
+        label_login = ctk.CTkLabel(
+            master=frame_login,
+            text="Login",
+            font=("Courie", 30, "italic"),
+            text_color=("white"),
+            width=300,
+        ).place(x=25, y=5)
 
-janela.mainloop()
+        entry_email = ctk.CTkEntry(
+            master=frame_login,
+            placeholder_text="Digite seu email ou usuário",
+            font=("Roboto", 11, "bold"),
+            width=300,
+        ).place(x=25, y=165)
+
+        entry_password = ctk.CTkEntry(
+            master=frame_login,
+            placeholder_text="Digite sua senha",
+            font=("Roboto", 11, "bold"),
+            width=300,
+            show="*",
+        ).place(x=25, y=210)
+
+        checkbox_user = ctk.CTkCheckBox(
+            master=frame_login, text="Lembrar email ou usuário"
+        )
+        checkbox_user.place(x=25, y=250)
+
+        button_login = ctk.CTkButton(
+            master=frame_login,
+            text="Login",
+            width=300,
+            command=function.button_function,
+        ).place(x=25, y=290)
+
+        def screen_register():
+            # apagar tela do login e mostar a de cadastro
+            frame_login.pack_forget()
+
+            frame_register = ctk.CTkFrame(master=window, width=350, height=396)
+            frame_register.pack(side=RIGHT)
+
+        button_register = ctk.CTkButton(
+            master=frame_login,
+            text="Cadastre-se",
+            width=300,
+            fg_color="black",
+            hover_color="#0f0f0f",
+            command=screen_register,
+        ).place(x=25, y=330)
+
+
+TelaLogin()
