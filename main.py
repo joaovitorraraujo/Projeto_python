@@ -56,9 +56,10 @@ import tkinter as tk
 from tkinter import *
 import function
 
+# tema
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
-# janela
+
 janela = ctk.CTk()
 
 label_descricao = ctk.CTkLabel(
@@ -69,11 +70,12 @@ label_descricao = ctk.CTkLabel(
 )
 label_descricao.place(x=55, y=50)
 
+# janela
 janela.title("Login")
 janela.geometry("700x400")
 janela.resizable(False, False)
 
-# imagem
+# imagem da janela
 img = PhotoImage(file="log.png")
 label_img = ctk.CTkLabel(master=janela, text="", image=img)
 label_img.place(x=75, y=120)
@@ -83,10 +85,12 @@ label_img.place(x=75, y=120)
 frame_login = ctk.CTkFrame(master=janela, width=350, height=396)
 frame_login.pack(side=RIGHT)
 
+# imagem do frame
 img = PhotoImage(file="login.png")
 label_img = ctk.CTkLabel(master=frame_login, text="", width=300, image=img)
 label_img.place(x=25, y=50)
 
+# widgets dentro do frame
 label_login = ctk.CTkLabel(
     master=frame_login,
     text="Login",
