@@ -57,7 +57,7 @@ import function
 
 window = ctk.CTk()
 
-class TelaLogin():
+# class TelaLogin():
     def __init__(self):
         self.window = window
         self.theme()
