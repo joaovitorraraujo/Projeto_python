@@ -63,7 +63,7 @@ class TelaLogin:
     def __init__(self):
         self.window = window
         self.theme()
-        self.screen()
+        self.config_window()
         self.screen_login()
         window.mainloop()
 
@@ -80,7 +80,7 @@ class TelaLogin:
     ).place(x=55, y=50)
 
     # janela
-    def screen(self):
+    def config_window(self):
         window.title("Login")
         window.geometry("700x460")
         window.resizable(False, False)
@@ -144,7 +144,7 @@ class TelaLogin:
 
         entry_email = ctk.CTkEntry(
             master=frame_login,
-            placeholder_text="Digite seu email ou usuário",
+            placeholder_text="Digite seu E-mail ou usuário",
             font=("Roboto", 11, "bold"),
             width=300,
         ).place(x=25, y=165)
@@ -158,11 +158,11 @@ class TelaLogin:
         ).place(x=25, y=210)
 
         checkbox_user = ctk.CTkCheckBox(
-            master=frame_login, text="Lembrar email ou usuário"
+            master=frame_login, text="Lembrar email ou usuário", width=100
         )
         checkbox_user.place(x=25, y=250)
 
-        # botões de login e register
+        # botões de login, register e recuperar senha
         button_login = ctk.CTkButton(
             master=frame_login,
             text="Login",
@@ -170,12 +170,82 @@ class TelaLogin:
             command=function.button_function,
         ).place(x=25, y=290)
 
+        button_forgot_password = ctk.CTkButton(
+            master=frame_login,
+            text="Esqueci a senha",
+            width=100,
+            font=("Roboto", 11, "underline"),
+            fg_color="#6a6a7c",
+            hover_color="#4d4c4c",
+            command=function.button_function,
+        ).place(x=225, y=250)
+
         def screen_register():
             # apagar tela do login e mostar a de cadastro
             frame_login.pack_forget()
 
+            # criar frame da tela de registro
             frame_register = ctk.CTkFrame(master=window, width=350, height=456)
             frame_register.pack(side=RIGHT)
+
+            # widgts dentro do frame de resgistro
+            label_login = ctk.CTkLabel(
+                master=frame_register,
+                text="Crie sua conta",
+                font=("Courie", 30, "italic"),
+                text_color=("white"),
+                width=300,
+            ).place(x=25, y=25)
+
+            entry_email = ctk.CTkEntry(
+                master=frame_register,
+                placeholder_text="Digite seu usuário",
+                font=("Roboto", 11, "bold"),
+                width=300,
+            ).place(x=25, y=205)
+
+            entry_email = ctk.CTkEntry(
+                master=frame_register,
+                placeholder_text="Digite seu E-mail",
+                font=("Roboto", 11, "bold"),
+                width=300,
+            ).place(x=25, y=235)
+
+            entry_email = ctk.CTkEntry(
+                master=frame_register,
+                placeholder_text="Digite sua senha",
+                font=("Roboto", 11, "bold"),
+                width=300,
+            ).place(x=25, y=265)
+
+            entry_email = ctk.CTkEntry(
+                master=frame_register,
+                placeholder_text="Confirme sua senha",
+                font=("Roboto", 11, "bold"),
+                width=300,
+            ).place(x=25, y=265)
+            
+            img_google = PhotoImage(file="google.png")
+            label_img = ctk.CTkButton(
+                master=frame_register,
+                text="Vincule com Google",
+                image=img_google,
+                width=300,
+                fg_color="#fcfcfc",
+                text_color=("black"),
+                hover_color="#cdd1cd",
+            ).place(x=25, y=379)
+
+            img_fecebook = PhotoImage(file="facebook.png")
+            label_img = ctk.CTkButton(
+                master=frame_register,
+                text="Vincule com Facebook",
+                image=img_fecebook,
+                width=300,
+                fg_color="#fcfcfc",
+                text_color=("black"),
+                hover_color="#cdd1cd",
+            ).place(x=25, y=419)
 
         button_register = ctk.CTkButton(
             master=frame_login,
