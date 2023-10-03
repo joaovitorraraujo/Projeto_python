@@ -82,24 +82,48 @@ class TelaLogin:
     # janela
     def screen(self):
         window.title("Login")
-        window.geometry("700x400")
+        window.geometry("700x460")
         window.resizable(False, False)
         window.iconbitmap("icon.ico")
 
     def screen_login(self):
         # imagem da janela
-        img = PhotoImage(file="log.png")
-        label_img = ctk.CTkLabel(master=window, text="", image=img).place(x=75, y=120)
+        img_log = PhotoImage(file="log.png")
+        label_img = ctk.CTkLabel(master=window, text="", image=img_log).place(
+            x=75, y=120
+        )
 
         # frame
-        frame_login = ctk.CTkFrame(master=window, width=350, height=396)
+        frame_login = ctk.CTkFrame(master=window, width=350, height=456)
         frame_login.pack(side=RIGHT)
 
         # imagem do frame
-        img = PhotoImage(file="login.png")
+        img_user = PhotoImage(file="user.png")
         label_img = ctk.CTkLabel(
-            master=frame_login, text="", width=300, image=img
+            master=frame_login, text="", width=300, image=img_user
         ).place(x=25, y=50)
+
+        img_google = PhotoImage(file="google.png")
+        label_img = ctk.CTkButton(
+            master=frame_login,
+            text="Continue com Google",
+            image=img_google,
+            width=300,
+            fg_color="#fcfcfc",
+            text_color=("black"),
+            hover_color="#cdd1cd",
+        ).place(x=25, y=379)
+
+        img_fecebook = PhotoImage(file="facebook.png")
+        label_img = ctk.CTkButton(
+            master=frame_login,
+            text="Continue com Facebook",
+            image=img_fecebook,
+            width=300,
+            fg_color="#fcfcfc",
+            text_color=("black"),
+            hover_color="#cdd1cd",
+        ).place(x=25, y=419)
 
         # widgets dentro do frame
         label_login = ctk.CTkLabel(
@@ -109,6 +133,14 @@ class TelaLogin:
             text_color=("white"),
             width=300,
         ).place(x=25, y=5)
+
+        label_or = ctk.CTkLabel(
+            master=frame_login,
+            text="Ou",
+            font=("Courie", 10),
+            text_color=("white"),
+            width=300,
+        ).place(x=25, y=349)
 
         entry_email = ctk.CTkEntry(
             master=frame_login,
@@ -130,6 +162,7 @@ class TelaLogin:
         )
         checkbox_user.place(x=25, y=250)
 
+        # botões de login e register
         button_login = ctk.CTkButton(
             master=frame_login,
             text="Login",
@@ -141,7 +174,7 @@ class TelaLogin:
             # apagar tela do login e mostar a de cadastro
             frame_login.pack_forget()
 
-            frame_register = ctk.CTkFrame(master=window, width=350, height=396)
+            frame_register = ctk.CTkFrame(master=window, width=350, height=456)
             frame_register.pack(side=RIGHT)
 
         button_register = ctk.CTkButton(
@@ -151,7 +184,7 @@ class TelaLogin:
             fg_color="black",
             hover_color="#0f0f0f",
             command=screen_register,
-        ).place(x=25, y=330)
+        ).place(x=25, y=325)
 
 
 TelaLogin()
