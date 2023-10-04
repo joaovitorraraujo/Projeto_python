@@ -17,43 +17,24 @@ def inserir_codigo():
     codigo_str = "COD-{}".format(codigo)
     lista_codigo.append((codigo_str, descricao, tipo, quantidade, data_criacao))
 
-
-# titulo da janela
-janela.title("Cadastro de materiais")
-
-# descrição do material
-label_descricao = tk.Label(text="Descrição do Material")
-label_descricao.grid(row=1, column=0, padx=10, pady=10, sticky="nswe", columnspan=4)
-
-entry_descricao = tk.Entry()
-entry_descricao.grid(row=2, column=0, padx=10, pady=10, sticky="nswe", columnspan=4)
-
-label_tipo_unidade = tk.Label(text="Tipo da unidade do material")
-label_tipo_unidade.grid(row=3, column=0, padx=10, pady=10, sticky="nswe", columnspan=2)
-
 # Combobox(lista para escolher o material)
 combobox_selecione_tipo = ttk.Combobox(values=lista_tipos)
 combobox_selecione_tipo.grid(
     row=3, column=2, padx=10, pady=10, sticky="nswe", columnspan=2
 )
 
-# descrever a quantidade
-label_quantidade = tk.Label(text="Quantidade de material")
-label_quantidade.grid(row=4, column=0, padx=10, pady=10, sticky="nswe", columnspan=2)
-
 entry_quantidade = tk.Entry()
 entry_quantidade.grid(row=4, column=2, padx=10, pady=10, sticky="nswe", columnspan=2)
 
-botao_criar_codigo = tk.Button(text="Criar codigo", command=inserir_codigo)
-botao_criar_codigo.grid(row=5, column=0, padx=10, pady=10, sticky="nswe", columnspan=4)
-
 
 janela.mainloop()"""
+
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 import tkinter as tk
 from tkinter import *
 import function
+import re
 
 lista_registers = []
 
@@ -85,11 +66,11 @@ class TelaLogin:
         window.title("Login")
         window.geometry("700x460")
         window.resizable(False, False)
-        window.iconbitmap("icon.ico")
+        window.iconbitmap("imagens/icon.ico")
 
     def screen_login(self):
         # imagem da janela
-        img_log = PhotoImage(file="log.png")
+        img_log = PhotoImage(file="imagens/log.png")
         label_img = ctk.CTkLabel(master=window, text="", image=img_log).place(
             x=75, y=120
         )
@@ -99,12 +80,12 @@ class TelaLogin:
         frame_login.pack(side=RIGHT)
 
         # imagem do frame
-        img_user = PhotoImage(file="user.png")
+        img_user = PhotoImage(file="imagens/user.png")
         label_img = ctk.CTkLabel(
             master=frame_login, text="", width=300, image=img_user
         ).place(x=25, y=50)
 
-        img_google = PhotoImage(file="google.png")
+        img_google = PhotoImage(file="imagens/google.png")
         button_img = ctk.CTkButton(
             master=frame_login,
             text="Continue com Google",
@@ -115,7 +96,7 @@ class TelaLogin:
             hover_color="#dc5e50",
         ).place(x=25, y=379)
 
-        img_fecebook = PhotoImage(file="facebook.png")
+        img_fecebook = PhotoImage(file="imagens/facebook.png")
         button_img = ctk.CTkButton(
             master=frame_login,
             text="Continue com Facebook",
@@ -188,10 +169,8 @@ class TelaLogin:
                 msg_successfully = CTkMessagebox(
                     title="Info", icon="cancel", message="Usuário ou senha incorretos!"
                 )
-
-            # Limpe os campos de entrada
-            entry_email.delete(0, "end")
-            entry_password.delete(0, "end")
+                # Limpe os campos de entrada
+                entry_password.delete(0, "end")
 
         # botões de login, register e recuperar senha
         button_login = ctk.CTkButton(
@@ -285,26 +264,50 @@ class TelaLogin:
             )
             button_terms.place(x=225, y=270)
 
+            def is_valid_email(email):
+                # Verifica se o email tem um formato válido
+                email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+                return re.match(email_regex, email) is not None
+
             def coonfirm_register():
                 add_user = entry_user_register.get()
                 add_email = entry_email_register.get()
                 add_password = entry_password_register.get()
                 add_password_confirm = entry_confirm_password.get()
-                lista_registers.append(
-                    (add_user, add_email, add_password, add_password_confirm)
-                )
-                # Limpar o CTkEntry após armazenar o valor
-                entry_user_register.delete(0, "end")
-                entry_email_register.delete(0, "end")
-                entry_password_register.delete(0, "end")
-                entry_confirm_password.delete(0, "end")
 
-                msg_successfully = CTkMessagebox(
-                    title="Info", icon="check", message="Cadastrado com sucesso!"
-                )
+                # Verifica se o email inserido é válido
+                if all ([add_user, add_email, add_password, add_password_confirm]):
+                    if is_valid_email(add_email):
+                        if add_password_confirm == add_password:
+                            lista_registers.append((add_user, add_email, add_password, add_password_confirm))
+                            
+                            # Limpar os campos de entrada após armazenar os valores
+                            entry_user_register.delete(0, "end")
+                            entry_email_register.delete(0, "end")
+                            entry_password_register.delete(0, "end")
+                            entry_confirm_password.delete(0, "end")
 
-                frame_register.pack_forget()
-                frame_login.pack(side=RIGHT)
+                            msg_successfully = CTkMessagebox(
+                                title="Info", icon="check", message="Cadastrado com sucesso!"
+                            )
+
+                            frame_register.pack_forget()
+                            frame_login.pack(side=RIGHT)
+                        else:
+                            msg_successfully = CTkMessagebox(
+                                title="Info", icon="warning", message="Campo de 'senha' e 'confirmar senha' devem ser iguais!"
+                            )
+                            
+                            entry_confirm_password.delete(0, "end")
+                    else:
+                        msg_successfully = CTkMessagebox(
+                                title="Info", icon="warning", message="Email inválido!")
+                        
+                        
+                else:
+                    msg_successfully = CTkMessagebox(
+                            title="Info", icon="warning", message="Por favor preencha todos os campos!"
+                    )
 
             # teste para ver se a varial esta adicionando a lista
             def show_items():
@@ -350,7 +353,7 @@ class TelaLogin:
                 width=300,
             ).place(x=25, y=349)
 
-            img_google = PhotoImage(file="google.png")
+            img_google = PhotoImage(file="imagens/google.png")
             Button_img = ctk.CTkButton(
                 master=frame_register,
                 text="Vincule com Google",
@@ -361,7 +364,7 @@ class TelaLogin:
                 hover_color="#dc5e50",
             ).place(x=25, y=379)
 
-            img_fecebook = PhotoImage(file="facebook.png")
+            img_fecebook = PhotoImage(file="imagens/facebook.png")
             Button_img = ctk.CTkButton(
                 master=frame_register,
                 text="Vincule com Facebook",
