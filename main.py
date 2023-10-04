@@ -148,7 +148,8 @@ class TelaLogin:
             placeholder_text="Digite seu E-mail ou usuário",
             font=("Roboto", 11, "bold"),
             width=300,
-        ).place(x=25, y=165)
+        )
+        entry_email.place(x=25, y=165)
 
         entry_password = ctk.CTkEntry(
             master=frame_login,
@@ -156,19 +157,50 @@ class TelaLogin:
             font=("Roboto", 11, "bold"),
             width=300,
             show="*",
-        ).place(x=25, y=205)
+        )
+        entry_password.place(x=25, y=205)
 
         checkbox_user = ctk.CTkCheckBox(
             master=frame_login, text="Lembrar email ou usuário", width=100
         ).place(x=25, y=250)
+
+        def confirm_login():
+            validate_user = entry_email.get()
+            validate_email = entry_email.get()
+            validate_password = entry_password.get()
+
+            # Percorra a lista_registers para verificar se o usuário, email e senha estão presentes
+            for user_info in lista_registers:
+                stored_user, stored_email, stored_password, *_ = user_info
+                # Verifique se o usuário, email e senha correspondem aos valores armazenados
+                if (
+                    validate_user == stored_user or validate_email == stored_email
+                ) and validate_password == stored_password:
+                    msg_successfully = CTkMessagebox(
+                        title="Info",
+                        icon="check",
+                        message="Login efetuado com sucesso!",
+                    )
+                    # Se encontrarmos uma correspondência, podemos sair do loop
+                    break
+            else:
+                # Se o loop não encontrar correspondência, exiba a mensagem de erro
+                msg_successfully = CTkMessagebox(
+                    title="Info", icon="cancel", message="Usuário ou senha incorretos!"
+                )
+
+            # Limpe os campos de entrada
+            entry_email.delete(0, "end")
+            entry_password.delete(0, "end")
 
         # botões de login, register e recuperar senha
         button_login = ctk.CTkButton(
             master=frame_login,
             text="Login",
             width=300,
-            command=function.button_function,
-        ).place(x=25, y=290)
+            command=confirm_login,
+        )
+        button_login.place(x=25, y=290)
 
         button_forgot_password = ctk.CTkButton(
             master=frame_login,
@@ -258,7 +290,9 @@ class TelaLogin:
                 add_email = entry_email_register.get()
                 add_password = entry_password_register.get()
                 add_password_confirm = entry_confirm_password.get()
-                lista_registers.append((add_user,add_email,add_password,add_password_confirm))
+                lista_registers.append(
+                    (add_user, add_email, add_password, add_password_confirm)
+                )
                 # Limpar o CTkEntry após armazenar o valor
                 entry_user_register.delete(0, "end")
                 entry_email_register.delete(0, "end")
@@ -269,9 +303,11 @@ class TelaLogin:
                     title="Info", icon="check", message="Cadastrado com sucesso!"
                 )
 
-                
+                frame_register.pack_forget()
+                frame_login.pack(side=RIGHT)
+
             # teste para ver se a varial esta adicionando a lista
-            """def show_items():
+            def show_items():
                 print("Itens armazenados:")
                 for item in lista_registers:
                     print(item)
@@ -279,7 +315,7 @@ class TelaLogin:
             show_button = ctk.CTkButton(
                 master=frame_register, text="Mostrar Itens", command=show_items
             )
-            show_button.place(x=25, y=1)"""
+            show_button.place(x=25, y=1)
 
             button_register = ctk.CTkButton(
                 master=frame_register,
