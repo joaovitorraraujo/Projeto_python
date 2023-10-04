@@ -57,7 +57,7 @@ class TelaLogin:
     label_description = ctk.CTkLabel(
         master=window,
         text="Bem-Vindo ao Projeto",
-        font=("Arial 20", 25, "underline"),
+        font=("Arial 20", 15, "underline"),
         text_color="white",
         width=300,
     ).place(x=25, y=5)
@@ -149,7 +149,7 @@ class TelaLogin:
         label_login = ctk.CTkLabel(
             master=frame_login,
             text="Login",
-            font=("Times New Roman", 30, "italic"),
+            font=("Arial 20", 30),
             text_color=("white"),
             width=300,
         ).place(x=25, y=5)
