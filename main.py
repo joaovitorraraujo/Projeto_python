@@ -55,9 +55,12 @@ import tkinter as tk
 from tkinter import *
 import function
 
+lista_registers = []
+
 window = ctk.CTk()
 
-# class TelaLogin():
+
+class TelaLogin:
     def __init__(self):
         self.window = window
         self.theme()
@@ -207,32 +210,37 @@ window = ctk.CTk()
                 placeholder_text="Digite seu usuário",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=110)
+            )
+            entry_user_register.place(x=25, y=110)
 
             entry_email_register = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Digite seu E-mail",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=150)
+            )
+            entry_email_register.place(x=25, y=150)
 
             entry_password_register = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Digite sua senha",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=190)
+            )
+            entry_password_register.place(x=25, y=190)
 
             entry_confirm_password = ctk.CTkEntry(
                 master=frame_register,
                 placeholder_text="Confirme sua senha",
                 font=("Roboto", 11, "bold"),
                 width=300,
-            ).place(x=25, y=230)
+            )
+            entry_confirm_password.place(x=25, y=230)
 
             checkbox_terms = ctk.CTkCheckBox(
                 master=frame_register, text="Aceito os termos de serviço", width=145
-            ).place(x=25, y=270)
+            )
+            checkbox_terms.place(x=25, y=270)
 
             button_terms = ctk.CTkButton(
                 master=frame_register,
@@ -242,16 +250,36 @@ window = ctk.CTk()
                 fg_color="#6a6a7c",
                 hover_color="#4d4c4c",
                 command=function.button_function,
-            ).place(x=225, y=270)
+            )
+            button_terms.place(x=225, y=270)
 
             def coonfirm_register():
+                add_user = entry_user_register.get()
+                add_email = entry_email_register.get()
+                add_password = entry_password_register.get()
+                add_password_confirm = entry_confirm_password.get()
+                lista_registers.append((add_user,add_email,add_password,add_password_confirm))
+                # Limpar o CTkEntry após armazenar o valor
+                entry_user_register.delete(0, "end")
+                entry_email_register.delete(0, "end")
+                entry_password_register.delete(0, "end")
+                entry_confirm_password.delete(0, "end")
+
                 msg_successfully = CTkMessagebox(
-                    title="Info", icon="check", message="Cadastrado com sucesso"
+                    title="Info", icon="check", message="Cadastrado com sucesso!"
                 )
 
-                frame_register.pack_forget()
+                
+            # teste para ver se a varial esta adicionando a lista
+            """def show_items():
+                print("Itens armazenados:")
+                for item in lista_registers:
+                    print(item)
 
-                frame_login.pack(side=RIGHT)
+            show_button = ctk.CTkButton(
+                master=frame_register, text="Mostrar Itens", command=show_items
+            )
+            show_button.place(x=25, y=1)"""
 
             button_register = ctk.CTkButton(
                 master=frame_register,
@@ -318,5 +346,4 @@ window = ctk.CTk()
         ).place(x=25, y=325)
 
 
-# TelaLogin()
-window.mainloop()
+TelaLogin()
