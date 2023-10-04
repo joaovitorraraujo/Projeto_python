@@ -57,13 +57,51 @@ class TelaLogin:
     label_description = ctk.CTkLabel(
         master=window,
         text="Bem-Vindo ao Projeto",
-        font=("Roboto", 25, "bold"),
-        text_color="#00B0F0",
-    ).place(x=55, y=50)
+        font=("Arial 20", 25, "underline"),
+        text_color="white",
+        width=300,
+    ).place(x=25, y=5)
 
-    # janela
+    label_presentation1 = ctk.CTkLabel(
+        master=window,
+        text="Sistema ",
+        font=(
+            "Impact",
+            30,
+        ),
+        text_color="white",
+        bg_color="transparent",
+    )
+    label_presentation1.place(x=110, y=80)
+
+    label_presentation2 = ctk.CTkLabel(
+        master=window,
+        text="De",
+        font=(
+            "Impact",
+            16,
+        ),
+        text_color="white",
+        bg_color="transparent",
+    )
+    label_presentation2.place(x=219, y=89)
+
+    label_presentation3 = ctk.CTkLabel(
+        master=window,
+        text="Login",
+        font=("Impact", 59),
+        text_color="#0080e4",
+        bg_color="transparent",
+    )
+    label_presentation3.place(x=110, y=110)
+
+    label_presentation3.lift()
+    label_presentation2.lift()
+    label_presentation1.lift()
+
+    # janela configuração
     def config_window(self):
-        window.title("Login")
+        window.title("Sistema de login")
         window.geometry("700x460")
         window.resizable(False, False)
         window.iconbitmap("imagens/icon.ico")
@@ -72,7 +110,7 @@ class TelaLogin:
         # imagem da janela
         img_log = PhotoImage(file="imagens/log.png")
         label_img = ctk.CTkLabel(master=window, text="", image=img_log).place(
-            x=75, y=120
+            x=75, y=190
         )
 
         # frame
@@ -111,7 +149,7 @@ class TelaLogin:
         label_login = ctk.CTkLabel(
             master=frame_login,
             text="Login",
-            font=("Courie", 30, "italic"),
+            font=("Times New Roman", 30, "italic"),
             text_color=("white"),
             width=300,
         ).place(x=25, y=5)
@@ -189,7 +227,8 @@ class TelaLogin:
             fg_color="#6a6a7c",
             hover_color="#4d4c4c",
             command=function.button_function,
-        ).place(x=225, y=250)
+        )
+        button_forgot_password.place(x=225, y=250)
 
         def screen_register():
             # apagar tela do login e mostar a de cadastro
@@ -266,7 +305,7 @@ class TelaLogin:
 
             def is_valid_email(email):
                 # Verifica se o email tem um formato válido
-                email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
+                email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
                 return re.match(email_regex, email) is not None
 
             def coonfirm_register():
@@ -276,11 +315,18 @@ class TelaLogin:
                 add_password_confirm = entry_confirm_password.get()
 
                 # Verifica se o email inserido é válido
-                if all ([add_user, add_email, add_password, add_password_confirm]):
+                if all([add_user, add_email, add_password, add_password_confirm]):
                     if is_valid_email(add_email):
                         if add_password_confirm == add_password:
-                            lista_registers.append((add_user, add_email, add_password, add_password_confirm))
-                            
+                            lista_registers.append(
+                                (
+                                    add_user,
+                                    add_email,
+                                    add_password,
+                                    add_password_confirm,
+                                )
+                            )
+
                             # Limpar os campos de entrada após armazenar os valores
                             entry_user_register.delete(0, "end")
                             entry_email_register.delete(0, "end")
@@ -288,25 +334,31 @@ class TelaLogin:
                             entry_confirm_password.delete(0, "end")
 
                             msg_successfully = CTkMessagebox(
-                                title="Info", icon="check", message="Cadastrado com sucesso!"
+                                title="Info",
+                                icon="check",
+                                message="Cadastrado com sucesso!",
                             )
 
                             frame_register.pack_forget()
                             frame_login.pack(side=RIGHT)
                         else:
                             msg_successfully = CTkMessagebox(
-                                title="Info", icon="warning", message="Campo de 'senha' e 'confirmar senha' devem ser iguais!"
+                                title="Info",
+                                icon="warning",
+                                message="Campo de 'senha' e 'confirmar senha' devem ser iguais!",
                             )
-                            
+
                             entry_confirm_password.delete(0, "end")
                     else:
                         msg_successfully = CTkMessagebox(
-                                title="Info", icon="warning", message="Email inválido!")
-                        
-                        
+                            title="Info", icon="warning", message="Email inválido!"
+                        )
+
                 else:
                     msg_successfully = CTkMessagebox(
-                            title="Info", icon="warning", message="Por favor preencha todos os campos!"
+                        title="Info",
+                        icon="warning",
+                        message="Por favor preencha todos os campos!",
                     )
 
             # teste para ver se a varial esta adicionando a lista
