@@ -242,7 +242,7 @@ class TelaLogin:
             label_register = ctk.CTkLabel(
                 master=frame_register,
                 text="Crie sua conta",
-                font=("Courie", 30, "italic"),
+                font=("Arial 20", 30, ),
                 text_color=("white"),
                 width=300,
             ).place(x=25, y=25)
@@ -286,7 +286,7 @@ class TelaLogin:
                 width=300,
             )
             entry_confirm_password.place(x=25, y=230)
-
+                
             checkbox_terms = ctk.CTkCheckBox(
                 master=frame_register, text="Aceito os termos de serviço", width=145
             )
