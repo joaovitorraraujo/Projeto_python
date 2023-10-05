@@ -179,9 +179,20 @@ class TelaLogin:
         )
         entry_password.place(x=25, y=205)
 
-        checkbox_user = ctk.CTkCheckBox(
-            master=frame_login, text="Lembrar email ou usuário", width=100
-        ).place(x=25, y=250)
+        view_password = ctk.BooleanVar()
+        
+        checkbox_view_password = ctk.CTkCheckBox(
+            master=frame_login, text="Mostrar senha", width=100, variable=view_password
+        )
+        checkbox_view_password.place(x=25, y=250)
+        
+        def toggle_password_visibility(*args):
+            if view_password.get():
+                entry_password.configure(show="")
+            else:
+                entry_password.configure(show="*")
+        
+        view_password.trace("w", toggle_password_visibility)
 
         def confirm_login():
             validate_user = entry_email.get()
@@ -218,7 +229,13 @@ class TelaLogin:
             command=confirm_login,
         )
         button_login.place(x=25, y=290)
-
+        
+        # teste para ver se a varial esta adicionando a lista
+        def show_items():
+            print("Itens armazenados:")
+            for item in lista_registers:
+                print(item)
+                
         button_forgot_password = ctk.CTkButton(
             master=frame_login,
             text="Esqueci a senha",
@@ -226,7 +243,7 @@ class TelaLogin:
             font=("Roboto", 11, "underline"),
             fg_color="#6a6a7c",
             hover_color="#4d4c4c",
-            command=function.button_function,
+            command=show_items
         )
         button_forgot_password.place(x=225, y=250)
 
@@ -242,7 +259,10 @@ class TelaLogin:
             label_register = ctk.CTkLabel(
                 master=frame_register,
                 text="Crie sua conta",
-                font=("Arial 20", 30, ),
+                font=(
+                    "Arial 20",
+                    30,
+                ),
                 text_color=("white"),
                 width=300,
             ).place(x=25, y=25)
@@ -286,9 +306,14 @@ class TelaLogin:
                 width=300,
             )
             entry_confirm_password.place(x=25, y=230)
-                
+
+            confirm_terms = ctk.BooleanVar()
+
             checkbox_terms = ctk.CTkCheckBox(
-                master=frame_register, text="Aceito os termos de serviço", width=145
+                master=frame_register,
+                text="Aceito os termos de serviço",
+                width=145,
+                variable=confirm_terms,
             )
             checkbox_terms.place(x=25, y=270)
 
@@ -315,7 +340,10 @@ class TelaLogin:
                 add_password_confirm = entry_confirm_password.get()
 
                 # Verifica se o email inserido é válido
-                if all([add_user, add_email, add_password, add_password_confirm]):
+                if (
+                    all([add_user, add_email, add_password, add_password_confirm])
+                    and confirm_terms.get()
+                ):
                     if is_valid_email(add_email):
                         if add_password_confirm == add_password:
                             lista_registers.append(
@@ -360,17 +388,6 @@ class TelaLogin:
                         icon="warning",
                         message="Por favor preencha todos os campos!",
                     )
-
-            # teste para ver se a varial esta adicionando a lista
-            def show_items():
-                print("Itens armazenados:")
-                for item in lista_registers:
-                    print(item)
-
-            show_button = ctk.CTkButton(
-                master=frame_register, text="Mostrar Itens", command=show_items
-            )
-            show_button.place(x=25, y=1)
 
             button_register = ctk.CTkButton(
                 master=frame_register,
