@@ -38,8 +38,8 @@ import re
 
 lista_registers = []
 
-window = ctk.CTk()
 
+window = ctk.CTk()
 
 class TelaLogin:
     def __init__(self):
@@ -47,14 +47,15 @@ class TelaLogin:
         self.theme()
         self.config_window()
         self.screen_login()
-        window.mainloop()
+        self.window.mainloop()
 
+    
     # tema
     def theme(self):
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
 
-    label_description = ctk.CTkLabel(
+    label_welcome = ctk.CTkLabel(
         master=window,
         text="Bem-Vindo ao Projeto",
         font=("Arial 20", 15, "underline"),
@@ -143,6 +144,7 @@ class TelaLogin:
             fg_color="#3d5a98",
             text_color=("black"),
             hover_color="#5b6886",
+            command=function.second_window
         ).place(x=25, y=419)
 
         # widgets dentro do frame
@@ -324,7 +326,6 @@ class TelaLogin:
                 font=("Roboto", 11, "underline"),
                 fg_color="#6a6a7c",
                 hover_color="#4d4c4c",
-                command=function.button_function,
             )
             button_terms.place(x=225, y=270)
 
@@ -379,7 +380,7 @@ class TelaLogin:
                             entry_confirm_password.delete(0, "end")
                     else:
                         msg_successfully = CTkMessagebox(
-                            title="Info", icon="warning", message="Email inválido!"
+                            title="Info", icon="warning", message="Formato de E-mail inválido!"
                         )
 
                 else:
