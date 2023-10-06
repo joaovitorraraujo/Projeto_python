@@ -42,6 +42,7 @@ lista_registers = []
 
 window = ctk.CTk()
 
+
 class TelaLogin:
     def __init__(self):
         self.window = window
@@ -50,7 +51,6 @@ class TelaLogin:
         self.screen_login()
         self.window.mainloop()
 
-    
     # tema
     def theme(self):
         ctk.set_appearance_mode("dark")
@@ -145,7 +145,7 @@ class TelaLogin:
             fg_color="#3d5a98",
             text_color=("black"),
             hover_color="#5b6886",
-            command=function.second_window
+            command=function.second_window,
         ).place(x=25, y=419)
 
         # widgets dentro do frame
@@ -183,18 +183,18 @@ class TelaLogin:
         entry_password.place(x=25, y=205)
 
         view_password = ctk.BooleanVar()
-        
+
         checkbox_view_password = ctk.CTkCheckBox(
             master=frame_login, text="Mostrar senha", width=100, variable=view_password
         )
         checkbox_view_password.place(x=25, y=250)
-        
+
         def toggle_password_visibility(*args):
             if view_password.get():
                 entry_password.configure(show="")
             else:
                 entry_password.configure(show="*")
-        
+
         view_password.trace("w", toggle_password_visibility)
 
         def confirm_login():
@@ -232,13 +232,27 @@ class TelaLogin:
             command=confirm_login,
         )
         button_login.place(x=25, y=290)
-        
-        # teste para ver se a varial esta adicionando a lista
+
+        # função p mostrar os registros atuais
         def show_items():
-            print("Itens armazenados:")
-            for item in lista_registers:
-                print(item)
-                
+            number_list = len(lista_registers)
+            if len(lista_registers) == 0:
+                msg_successfully = CTkMessagebox(
+                    title="Lista de cadastros",
+                    icon=None,
+                    message="Não houve nenhum cadastro!",
+                )
+            else:
+                message = ""
+                for i in range(number_list):
+                    message += f"Lista {i + 1} = {lista_registers[i]}\n"
+
+                msg_successfully = CTkMessagebox(
+                    title="Lista de cadastros",
+                    icon=None,
+                    message=message,
+                )
+
         button_forgot_password = ctk.CTkButton(
             master=frame_login,
             text="Esqueci a senha",
@@ -246,7 +260,7 @@ class TelaLogin:
             font=("Roboto", 11, "underline"),
             fg_color="#6a6a7c",
             hover_color="#4d4c4c",
-            command=show_items
+            command=show_items,
         )
         button_forgot_password.place(x=225, y=250)
 
@@ -320,6 +334,16 @@ class TelaLogin:
             )
             checkbox_terms.place(x=25, y=270)
 
+            def show_terms():
+                # Termos de uso simples
+
+                # Mostrar messagebox com os termos de uso
+                view_terms = CTkMessagebox(
+                    title="Termos de Uso",
+                    icon=None,
+                    message="Bem-vindo ao nosso sistema de login!\n\nAo usar este aplicativo, você concorda em seguir estas regras simples:\n\n- Não compartilhe suas credenciais com outras pessoas.\n- Não faça atividades ilegais usando este serviço.\n- Respeite a privacidade de outros usuários.\n\nObrigado por usar nosso serviço!",
+                )
+
             button_terms = ctk.CTkButton(
                 master=frame_register,
                 text="Acesse os termos",
@@ -327,13 +351,9 @@ class TelaLogin:
                 font=("Roboto", 11, "underline"),
                 fg_color="#6a6a7c",
                 hover_color="#4d4c4c",
+                command=show_terms,
             )
             button_terms.place(x=225, y=270)
-
-            def is_valid_email(email):
-                # Verifica se o email tem um formato válido
-                email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
-                return re.match(email_regex, email) is not None
 
             def coonfirm_register():
                 add_user = entry_user_register.get()
@@ -346,42 +366,66 @@ class TelaLogin:
                     all([add_user, add_email, add_password, add_password_confirm])
                     and confirm_terms.get()
                 ):
-                    if is_valid_email(add_email):
-                        if add_password_confirm == add_password:
-                            lista_registers.append(
-                                (
-                                    add_user,
-                                    add_email,
-                                    add_password,
-                                    add_password_confirm,
+                    if function.is_valid_email(add_email):
+                        if not function.user_exists(
+                            add_user, add_email, lista_registers
+                        ):
+                            if not function.email_exists(
+                                add_user, add_email, lista_registers
+                            ):
+                                if add_password_confirm == add_password:
+                                    lista_registers.append(
+                                        (
+                                            add_user,
+                                            add_email,
+                                            add_password,
+                                            add_password_confirm,
+                                        )
+                                    )
+
+                                    # Limpar os campos de entrada após armazenar os valores
+                                    entry_user_register.delete(0, "end")
+                                    entry_email_register.delete(0, "end")
+                                    entry_password_register.delete(0, "end")
+                                    entry_confirm_password.delete(0, "end")
+
+                                    msg_successfully = CTkMessagebox(
+                                        title="Info",
+                                        icon="check",
+                                        message="Cadastrado com sucesso!",
+                                    )
+
+                                    frame_register.pack_forget()
+                                    frame_login.pack(side=RIGHT)
+                                else:
+                                    msg_successfully = CTkMessagebox(
+                                        title="Info",
+                                        icon="warning",
+                                        message="Campo de 'senha' e 'confirmar senha' devem ser iguais!",
+                                    )
+
+                                    entry_confirm_password.delete(0, "end")
+                            else:
+                                msg_successfully = CTkMessagebox(
+                                    title="Info",
+                                    icon="warning",
+                                    message="E-mail já existente!",
                                 )
-                            )
 
-                            # Limpar os campos de entrada após armazenar os valores
-                            entry_user_register.delete(0, "end")
-                            entry_email_register.delete(0, "end")
-                            entry_password_register.delete(0, "end")
-                            entry_confirm_password.delete(0, "end")
-
-                            msg_successfully = CTkMessagebox(
-                                title="Info",
-                                icon="check",
-                                message="Cadastrado com sucesso!",
-                            )
-
-                            frame_register.pack_forget()
-                            frame_login.pack(side=RIGHT)
+                                entry_email_register.delete(0, "end")
                         else:
                             msg_successfully = CTkMessagebox(
                                 title="Info",
                                 icon="warning",
-                                message="Campo de 'senha' e 'confirmar senha' devem ser iguais!",
+                                message="Usuário já existente!",
                             )
 
-                            entry_confirm_password.delete(0, "end")
+                            entry_user_register.delete("end", "end")
                     else:
                         msg_successfully = CTkMessagebox(
-                            title="Info", icon="warning", message="Formato de E-mail inválido!"
+                            title="Info",
+                            icon="warning",
+                            message="Formato de E-mail inválido!",
                         )
 
                 else:
