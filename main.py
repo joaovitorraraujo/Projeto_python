@@ -32,7 +32,8 @@ janela.mainloop()"""
 import customtkinter as ctk
 from CTkMessagebox import CTkMessagebox
 import tkinter as tk
-from tkinter import *
+from tkinter import PhotoImage
+from tkinter import RIGHT
 import function
 import re
 
