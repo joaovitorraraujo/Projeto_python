@@ -95,7 +95,7 @@ class TelaLogin:
         text_color="#0080e4",
         bg_color="transparent",
     )
-    label_presentation3.place(x=110, y=110)
+    label_presentation3.place(x=110, y=105)
 
     label_presentation3.lift()
     label_presentation2.lift()
@@ -145,7 +145,6 @@ class TelaLogin:
             fg_color="#3d5a98",
             text_color=("black"),
             hover_color="#5b6886",
-            command=function.second_window,
         ).place(x=25, y=419)
 
         # widgets dentro do frame
@@ -165,6 +164,9 @@ class TelaLogin:
             width=300,
         ).place(x=25, y=349)
 
+        def on_enter_pressed(event):
+            event.widget.tk_focusNext().focus()
+
         entry_email = ctk.CTkEntry(
             master=frame_login,
             placeholder_text="Digite seu E-mail ou usuário",
@@ -181,6 +183,8 @@ class TelaLogin:
             show="*",
         )
         entry_password.place(x=25, y=205)
+
+        entry_email.bind("<Return>", on_enter_pressed)
 
         view_password = ctk.BooleanVar()
 
@@ -214,12 +218,11 @@ class TelaLogin:
                         icon="check",
                         message="Login efetuado com sucesso!",
                     )
-                    
-                    
+
                     entry_email.delete(0, "end")
                     entry_password.delete(0, "end")
-                    
-                    function.screen_menu(window)                                                             
+
+                    function.screen_menu(window)
                     # Se encontrarmos uma correspondência, podemos sair do loop
                     break
             else:
@@ -297,9 +300,6 @@ class TelaLogin:
                 text_color=("white"),
                 width=300,
             ).place(x=25, y=70)
-            
-            def on_enter_pressed(event):
-                event.widget.tk_focusNext().focus()
 
             entry_user_register = ctk.CTkEntry(
                 master=frame_register,
@@ -332,11 +332,11 @@ class TelaLogin:
                 width=300,
             )
             entry_confirm_password.place(x=25, y=230)
-            
-            entry_user_register.bind('<Return>', on_enter_pressed)
-            entry_email_register.bind('<Return>', on_enter_pressed)
-            entry_password_register.bind('<Return>', on_enter_pressed)
-            entry_confirm_password.bind('<Return>', on_enter_pressed)
+
+            entry_user_register.bind("<Return>", on_enter_pressed)
+            entry_email_register.bind("<Return>", on_enter_pressed)
+            entry_password_register.bind("<Return>", on_enter_pressed)
+            entry_confirm_password.bind("<Return>", on_enter_pressed)
 
             confirm_terms = ctk.BooleanVar()
 
