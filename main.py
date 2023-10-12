@@ -214,6 +214,12 @@ class TelaLogin:
                         icon="check",
                         message="Login efetuado com sucesso!",
                     )
+                    
+                    
+                    entry_email.delete(0, "end")
+                    entry_password.delete(0, "end")
+                    
+                    function.screen_menu(window)                                                             
                     # Se encontrarmos uma correspondência, podemos sair do loop
                     break
             else:
@@ -291,6 +297,9 @@ class TelaLogin:
                 text_color=("white"),
                 width=300,
             ).place(x=25, y=70)
+            
+            def on_enter_pressed(event):
+                event.widget.tk_focusNext().focus()
 
             entry_user_register = ctk.CTkEntry(
                 master=frame_register,
@@ -323,6 +332,11 @@ class TelaLogin:
                 width=300,
             )
             entry_confirm_password.place(x=25, y=230)
+            
+            entry_user_register.bind('<Return>', on_enter_pressed)
+            entry_email_register.bind('<Return>', on_enter_pressed)
+            entry_password_register.bind('<Return>', on_enter_pressed)
+            entry_confirm_password.bind('<Return>', on_enter_pressed)
 
             confirm_terms = ctk.BooleanVar()
 
@@ -379,7 +393,6 @@ class TelaLogin:
                                             add_user,
                                             add_email,
                                             add_password,
-                                            add_password_confirm,
                                         )
                                     )
 
