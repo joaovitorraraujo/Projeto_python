@@ -109,6 +109,27 @@ class TelaLogin:
         window.iconbitmap("imagens/icon.ico")
 
     def screen_login(self):
+        def create_menu():
+            screen_menu = ctk.CTkToplevel(master=window)
+            screen_menu.title("Sistema de login")
+            screen_menu.geometry("1000x700")
+            screen_menu.resizable(True, True)
+            screen_menu.wm_iconbitmap("imagens/icon.ico")
+
+            def back_login():
+                # serve para mostrar a tela que tinha sido escondida
+                window.deiconify()
+                screen_menu.destroy()
+
+            button_sair = ctk.CTkButton(
+                master=screen_menu,
+                text=("Sair"),
+                text_color=("Black"),
+                fg_color=("Red"),
+                command=back_login,
+            )
+            button_sair.place(x=500, y=350)
+
         # imagem da janela
         img_log = PhotoImage(file="imagens/log.png")
         label_img = ctk.CTkLabel(master=window, text="", image=img_log).place(
@@ -222,7 +243,9 @@ class TelaLogin:
                     entry_email.delete(0, "end")
                     entry_password.delete(0, "end")
 
-                    function.screen_menu(window)
+                    # serve para esconder a uma tela
+                    window.withdraw()
+                    create_menu()
                     # Se encontrarmos uma correspondência, podemos sair do loop
                     break
             else:

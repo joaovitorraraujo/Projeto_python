@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import CTkMessagebox
 import re
-import tkinter
+import tkinter as tk
 from tkinter import PhotoImage
 
 
@@ -37,21 +37,3 @@ def user_exists(user, email, lista):
         if stored_user == user:
             return True
     return False
-
-
-def screen_menu(janela):
-    screen_menu = ctk.CTkToplevel(master=janela)
-    screen_menu.title("Sistema de login")
-    screen_menu.geometry("700x460")
-    screen_menu.resizable(True,True)
-    screen_menu.iconbitmap("imagens/icon.ico")
-
-
-
-    
-    
-    
-    
-
-
-
