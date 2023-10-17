@@ -110,7 +110,6 @@ class TelaLogin:
         window.iconbitmap("imagens/icon.ico")
 
     def screen_login(self):
-
         # imagem da janela
         img_log = PhotoImage(file="imagens/log.png")
         label_img = ctk.CTkLabel(master=window, text="", image=img_log).place(
@@ -168,7 +167,7 @@ class TelaLogin:
 
         def on_enter_pressed(event):
             event.widget.tk_focusNext().focus()
-    
+
         entry_email = ctk.CTkEntry(
             master=frame_login,
             placeholder_text="Digite seu E-mail ou usuário",
@@ -276,7 +275,7 @@ class TelaLogin:
             command=show_items,
         )
         button_forgot_password.place(x=225, y=250)
-        
+
         def create_menu():
             screen_menu = ctk.CTkToplevel(master=window)
             screen_menu.title("Sistema de login")
@@ -288,9 +287,9 @@ class TelaLogin:
                 dark_image=Image.open("imagens/home_light.png"), size=(40, 40)
             )
             chat_image = ctk.CTkImage(
-                dark_image=Image.open("imagens/chat_light.png"), size=(40,40)
+                dark_image=Image.open("imagens/chat_light.png"), size=(40, 40)
             )
-            
+
             img_options_menu = ctk.CTkImage(
                 dark_image=Image.open("imagens/user.png"), size=(40, 40)
             )
@@ -298,10 +297,12 @@ class TelaLogin:
                 dark_image=Image.open("imagens/add_user_light.png"), size=(40, 40)
             )
 
-            navigation_frame = ctk.CTkFrame(master=screen_menu, corner_radius=0,width=300 ,height=768)
+            navigation_frame = ctk.CTkFrame(
+                master=screen_menu, corner_radius=0, width=300, height=768
+            )
             navigation_frame.grid(row=0, column=0, sticky="nsew")
             navigation_frame.grid_rowconfigure(4, weight=1)
-            
+
             label_logo1 = ctk.CTkLabel(
                 master=navigation_frame,
                 text="Sistema ",
@@ -338,7 +339,6 @@ class TelaLogin:
             label_logo3.lift()
             label_logo2.lift()
             label_logo1.lift()
-            
 
             home_button = ctk.CTkButton(
                 master=navigation_frame,
@@ -352,7 +352,7 @@ class TelaLogin:
                 image=home_image,
                 anchor="w",
             )
-            home_button.grid(row=1, column=0,pady=(120,0) ,sticky="ew")
+            home_button.grid(row=1, column=0, pady=(120, 0), sticky="ew")
 
             chat_button = ctk.CTkButton(
                 navigation_frame,
@@ -366,8 +366,8 @@ class TelaLogin:
                 image=chat_image,
                 anchor="w",
             )
-            chat_button.grid(row=2, column=0,pady=(0,0), sticky="ew")
-            
+            chat_button.grid(row=2, column=0, pady=(0, 0), sticky="ew")
+
             add_button_friend = ctk.CTkButton(
                 navigation_frame,
                 corner_radius=0,
@@ -380,8 +380,8 @@ class TelaLogin:
                 image=img_add_user,
                 anchor="w",
             )
-            add_button_friend.grid(row=3, column=0,pady=(0,0), sticky="ew")
-            
+            add_button_friend.grid(row=3, column=0, pady=(0, 0), sticky="ew")
+
             def options_menu(escolha):
                 if escolha == "Sair":
                     msg_exit = CTkMessagebox(
@@ -412,14 +412,14 @@ class TelaLogin:
                 master=navigation_frame, text="", image=img_options_menu
             )
             label_img_menu.place(x=20, y=630)
-            
-            label_user = ctk.CTkLabel(
-                master=navigation_frame, text="User"
-            )
+
+            label_user = ctk.CTkLabel(master=navigation_frame, text="User")
             label_user.place(x=65, y=630)
-            
+
             label_user = ctk.CTkLabel(
-                master=navigation_frame, text="E-mail@gmail.com",font=("Arial", 10, "underline")
+                master=navigation_frame,
+                text="E-mail@gmail.com",
+                font=("Arial", 10, "underline"),
             )
             label_user.place(x=65, y=650)
 
@@ -428,7 +428,7 @@ class TelaLogin:
                 values=["Configurações", "Sair"],
                 command=options_menu,
             )
-            combobox.grid(row=5, column=0, padx=20, pady=(365,50), sticky="s")
+            combobox.grid(row=5, column=0, padx=20, pady=(365, 50), sticky="s")
             combobox.set("Opções")
 
         def screen_register():
