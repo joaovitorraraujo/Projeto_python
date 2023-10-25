@@ -339,7 +339,17 @@ class TelaLogin:
             label_logo3.lift()
             label_logo2.lift()
             label_logo1.lift()
-
+            
+            def press_home():
+                label_home = ctk.CTkLabel(
+                master=screen_menu,
+                text="Melhor não fazer do que\nmorrer de infarto...",
+                font=("Impact", 30),
+                text_color="white",
+                )
+                label_home.place(x=650,y=300)
+                
+            
             home_button = ctk.CTkButton(
                 master=navigation_frame,
                 corner_radius=0,
@@ -351,9 +361,11 @@ class TelaLogin:
                 hover_color=("gray70", "gray30"),
                 image=home_image,
                 anchor="w",
+                command=press_home
             )
             home_button.grid(row=1, column=0, pady=(120, 0), sticky="ew")
-
+            
+                
             chat_button = ctk.CTkButton(
                 navigation_frame,
                 corner_radius=0,
@@ -365,6 +377,7 @@ class TelaLogin:
                 hover_color=("gray70", "gray30"),
                 image=chat_image,
                 anchor="w",
+                command=press_home,
             )
             chat_button.grid(row=2, column=0, pady=(0, 0), sticky="ew")
 
